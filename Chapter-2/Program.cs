@@ -6,15 +6,15 @@ class Program
     {
         int[] numArray = new int[6];
         
-        AddNumbersToArray(numArray);
+        DiceRoles(numArray);
         PrintArray(numArray);
         FindMaxValue(numArray);
         
         
-        void AddNumbersToArray(int[] self)
+        void DiceRoles(int[] self)
         {
             Random _rng = new Random();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10000; i++)
             {
                 int index = _rng.Next(1, 7);
                 self[index-1] += 1;
@@ -28,24 +28,29 @@ class Program
                 return;
             }
 
-            int maxValue = self[0];
-            int indexOfMaxValue = 0;
-            for (int i = 0; i < self.Length; i++)
+            int maxValue_index = 0;
+            int minValue_index = 0;
+            for (int index = 0; index < self.Length; index++)
             {
-                if (maxValue < self[i])
+                if (self[maxValue_index] < self[index])
                 {
-                    maxValue = self[i];
-                    indexOfMaxValue = i;
+                    maxValue_index = index;
+                }
+
+                if (self[minValue_index] > self[index])
+                {
+                    minValue_index = index;
                 }
             }
             
-            Console.WriteLine($"The side that came up most was : {indexOfMaxValue+1}");
+            Console.WriteLine($"The side that came up most was : {maxValue_index+1}");
+            Console.WriteLine($"The side that came up least was {minValue_index+1}");
         }
         void PrintArray(int[] self)
         {
             for(int index = 0; index < self.Length; index++)
             {
-                Console.WriteLine($"{index} : {self[index]}");
+                Console.WriteLine($"{index+1} : {self[index]}");
             }
         }
     }
